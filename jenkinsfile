@@ -33,6 +33,7 @@ pipeline {
     }
     post {
         always {
+            node {
             // Publish JUnit test results
             junit 'test-results/junit-report.xml'
 
@@ -52,6 +53,7 @@ pipeline {
                 sh 'rm -rf test-results'
                 sh 'rm -rf playwright-report'
             }
+                }
         }
         failure {
             echo 'Playwright tests failed. Check reports for details.'
