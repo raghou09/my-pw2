@@ -1,0 +1,60 @@
+// Jenkinsfile
+pipeline {
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:latest' // Use the latest stable Playwright Docker image
+            args '--shm-size=1gb' // Recommended for Chromium in Docker to avoid memory issues
+        }
+    }
+    tools {
+        // This assumes you have configured a NodeJS tool in Jenkins Global Tool Configuration
+        // Go to Manage Jenkins > Global Tool Configuration > NodeJS Installations
+        // Add NodeJS and give it a name, e.g., 'NodeJS 18' or 'NodeJS Latest'
+        // If your Playwright Docker image already has Node.js and npm, you might not strictly need this,
+        // but it's good practice for general Node.js projects.
+        // nodejs 'NodeJS Latest' // Replace with the name you configured
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm // This checks out your Git repository
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install' // Installs your project's dependencies
+            }
+        }
+        stage('Run Playwright Tests') {
+            steps {
+                sh 'npm test' // Runs the "test" script defined in your package.json
+            }
+        }
+    }
+    post {
+        always {
+            // Publish JUnit test results
+            junit 'test-results/junit-report.xml'
+
+            // Publish HTML report (if generated)
+            // Ensure 'html' reporter is configured in playwright.config.ts to output to 'playwright-report'
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'playwright-report', // Directory where Playwright HTML report is generated
+                reportFiles: 'index.html',
+                reportName: 'Playwright HTML Report'
+            ])
+            script {
+                // Clean up node_modules and reports to keep workspace clean for next run
+                sh 'rm -rf node_modules'
+                sh 'rm -rf test-results'
+                sh 'rm -rf playwright-report'
+            }
+        }
+        failure {
+            echo 'Playwright tests failed. Check reports for details.'
+        }
+    }
+}
