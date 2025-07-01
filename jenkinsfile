@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            node {
+            node ('jenkins-agent-medium-52dds'){
             // Publish JUnit test results
             junit 'test-results/junit-report.xml'
 
