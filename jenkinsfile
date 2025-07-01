@@ -12,7 +12,7 @@ pipeline {
         // Add NodeJS and give it a name, e.g., 'NodeJS 18' or 'NodeJS Latest'
         // If your Playwright Docker image already has Node.js and npm, you might not strictly need this,
         // but it's good practice for general Node.js projects.
-        // nodejs 'NodeJS Latest' // Replace with the name you configured
+        nodejs 'NodeJS Latest' // Replace with the name you configured
     }
     stages {
         stage('Checkout Code') {
