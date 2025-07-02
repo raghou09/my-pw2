@@ -35,7 +35,7 @@ pipeline {
         always {
             node ('jenkins-agent-large java-mvn'){
             // Publish JUnit test results
-            junit 'test-results/junit-report.xml'
+            junit '**/test-results/junit-report.xml'
 
             // Publish HTML report (if generated)
             // Ensure 'html' reporter is configured in playwright.config.ts to output to 'playwright-report'
