@@ -1,10 +1,7 @@
 // Jenkinsfile
 pipeline {
     agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:latest' // Use the latest stable Playwright Docker image
-            args '--shm-size=1gb' // Recommended for Chromium in Docker to avoid memory issues
-        }
+        label 'playwright-docker-agent'
     }
     tools {
         // This assumes you have configured a NodeJS tool in Jenkins Global Tool Configuration
@@ -22,7 +19,7 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install' // Installs your project's dependencies
+                sh 'npm install && npx playwright install --with-deps' // Installs your project's dependencies
             }
         }
         stage('Run Playwright Tests') {
@@ -33,7 +30,6 @@ pipeline {
     }
     post {
         always {
-            node ('playwright-docker-agent'){
             // Publish JUnit test results
             junit '**/test-results/junit-report.xml'
 
@@ -53,7 +49,6 @@ pipeline {
                 sh 'rm -rf test-results'
                 sh 'rm -rf playwright-report'
             }
-                }
         }
         failure {
             echo 'Playwright tests failed. Check reports for details.'
