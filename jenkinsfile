@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            node ('jenkins-agent-large'){
+            node ('playwright-docker-agent'){
             // Publish JUnit test results
             junit '**/test-results/junit-report.xml'
 
