@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            node ('jenkins-agent-large java-mvn'){
+            node ('jenkins-agent-large'){
             // Publish JUnit test results
             junit '**/test-results/junit-report.xml'
 
