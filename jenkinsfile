@@ -49,6 +49,8 @@ pipeline {
             echo 'Archiving Playwright trace files and reports...'
             archiveArtifacts artifacts: 'test-results/**/trace.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'test-results/**/video.webm', allowEmptyArchive: true
+
             // STEP 2: Clean up the workspace AFTER archiving.
                 
                 sh 'rm -rf node_modules'
