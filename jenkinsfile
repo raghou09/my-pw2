@@ -44,7 +44,13 @@ pipeline {
                 reportName: 'Playwright HTML Report'
             ])
             script {
-                // Clean up node_modules and reports to keep workspace clean for next run
+
+                // STEP 1: Archive everything you need FIRST.
+            echo 'Archiving Playwright trace files and reports...'
+            archiveArtifacts artifacts: 'test-results/**/trace.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+            // STEP 2: Clean up the workspace AFTER archiving.
+                
                 sh 'rm -rf node_modules'
                 sh 'rm -rf test-results'
                 sh 'rm -rf playwright-report'

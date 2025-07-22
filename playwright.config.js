@@ -1,4 +1,5 @@
 // @ts-check
+// import { defineConfig, devices } from '@playwright/test';
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -23,7 +24,8 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName:'chromium',
-    headless: true
+    headless: true,
+    trace:'on'
 
   },
 
