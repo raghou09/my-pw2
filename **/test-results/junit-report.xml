@@ -1,0 +1,16 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="12.323582">
+<testsuite name="uibasics.spec.js" timestamp="2025-07-23T15:22:17.662Z" hostname="" tests="1" failures="0" skipped="0" time="11.759" errors="0">
+<testcase name="ui basics" classname="uibasics.spec.js" time="11.759">
+<system-out>
+<![CDATA[Navigating to login page...
+Login | Salesforce
+Filling username and password...
+Clicking login button...
+Waiting for successful login...
+
+[[ATTACHMENT|../../test-results/uibasics-ui-basics/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
