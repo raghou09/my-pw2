@@ -1,10 +1,10 @@
 const {test,expect} =  require('@playwright/test')
 
-test("ui basics", async({browser}) =>
+test("ui basics", async({page}) =>
     {
-        const brw = await browser.newContext();
-        const page = await brw.newPage();
-        // await pg.goto('https://google.com');
+        // const brw = await browser.newContext();
+        // const page = await brw.newPage();
+        // // await pg.goto('https://google.com');
 
         console.log('Navigating to login page...');
   await page.goto('https://211ieox-dev-ed.develop.my.salesforce.com/'); 
@@ -22,6 +22,7 @@ test("ui basics", async({browser}) =>
   console.log('Waiting for successful login...');
   await page.locator('div').filter({ hasText: /^SetupHome$/ }).first().waitFor({ state: 'visible',timeout: 50000 });
   await page.getByRole('button', { name: 'App Launcher' }).waitFor({ state: 'visible',timeout: 50000 });
+  await page.waitForTimeout(2000);
 
 }
 

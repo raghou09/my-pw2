@@ -26,11 +26,17 @@ export default defineConfig({
     browserName:'chromium',
     headless: true,
     trace:'on',
-    video: 'on'
+    video:'on'
 
   },
+ 
 
   /* Configure projects for major browsers */
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },],
   
 
   
